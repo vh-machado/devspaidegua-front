@@ -63,5 +63,6 @@ const estilos = StyleSheet.create({
     fontWeight: "600",
     textAlignVertical: "center",
     marginStart: 45,
+    alignSelf: 'center',
   },
 });
