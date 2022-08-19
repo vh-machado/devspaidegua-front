@@ -1,5 +1,6 @@
 import React from "react";
 import { ImageBackground, StyleSheet, Dimensions, View } from "react-native";
+import { Searchbar } from "react-native-paper";
 import { Ionicons } from "@expo/vector-icons";
 
 import cores from "../assets/cores";
@@ -11,14 +12,18 @@ const width = Dimensions.get("screen").width;
 
 export default function TopoPesquisa() {
   const { textoBarraPesquisa } = useInicio();
-  console.log(textoBarraPesquisa)
 
   return (
     <ImageBackground source={topo} style={estilos.topo}>
-      <View style={estilos.barraPesquisa}>
-        <Ionicons name="search" size={20} color={cores.spanishGray} />
-        <Texto style={estilos.texto}>{textoBarraPesquisa}</Texto>
-      </View>
+      <Searchbar
+        style={estilos.barraPesquisa}
+        inputStyle={estilos.texto}
+        placeholderTextColor={cores.battleshipGrey}
+        placeholder={textoBarraPesquisa}
+        theme={{colors:{primary: cores.celadonBlue}}}
+        icon={() => <Ionicons name="search" size={20} color={cores.battleshipGrey} />}
+        clearIcon
+      />
     </ImageBackground>
   );
 }
@@ -51,7 +56,6 @@ const estilos = StyleSheet.create({
     backgroundColor: "white",
     justifyContent: "flex-start",
     alignItems: "center",
-    paddingHorizontal: 10,
     margin: 10,
     borderRadius: 25,
     borderColor: cores.platinum,
@@ -59,9 +63,10 @@ const estilos = StyleSheet.create({
   },
 
   texto: {
+    fontFamily: "MontserratSemiBold",
     fontSize: 12,
-    color: cores.spanishGray,
-    fontWeight: "600",
-    marginStart: 10,
+    color: cores.battleshipGrey,
+    textAlignVertical: 'center',
+    marginStart: -10,
   },
 });

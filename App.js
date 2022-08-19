@@ -51,8 +51,8 @@ export default function App() {
         style={{ flex: 1 }}
         onLayout={onLayoutRootView}>
         <StatusBar style="light" translucent={true} />
-        <Cadastro />
-        {/*<Inicio/>*/}
+        {/*<Cadastro />*/}
+        <Inicio/>
       </SafeAreaView>
     </SafeAreaProvider>
   );
