@@ -8,6 +8,7 @@ const cores = {
   metallicSeaweed: '#028090',
   onyx: '#434343',
   persianGreen: '#00A896',
+  platinum: '#E7E7E7',
   spanishGray: '#999999',
 };
 

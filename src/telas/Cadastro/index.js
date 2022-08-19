@@ -1,16 +1,16 @@
-import React, { useState, useReducer } from 'react';
-import { View, FlatList, StyleSheet } from 'react-native';
+import React, { useState, useReducer } from "react";
+import { View, FlatList, StyleSheet } from "react-native";
 
-import { HelperText } from 'react-native-paper';
+import { HelperText } from "react-native-paper";
 
-import Texto from '../../components/Texto';
-import Topo from './components/Topo';
-import CampoFormulario from './components/CampoFormulario';
-import BotaoTipoUsuario from './components/BotaoTipoUsuario';
-import Botao from './components/Botao';
-import cores from '../../assets/cores';
+import Texto from "../../components/Texto";
+import Topo from "./components/Topo";
+import CampoFormulario from "./components/CampoFormulario";
+import BotaoTipoUsuario from "./components/BotaoTipoUsuario";
+import Botao from "./components/Botao";
+import cores from "../../assets/cores";
 
-import useCadastro from '../../hooks/useCadastro';
+import useCadastro from "../../hooks/useCadastro";
 
 export default function Cadastro() {
   // Pega os dados do mock cadastro
@@ -24,9 +24,9 @@ export default function Cadastro() {
 
   // Controle dados inseridos nos campos
   const [dadosCampos, setDadosCampos] = useState({
-    nome: '',
-    email: '',
-    senha: '',
+    nome: "",
+    email: "",
+    senha: "",
   });
 
   const [camposInvalidos, setCamposInvalidos] = useState({
@@ -65,7 +65,7 @@ export default function Cadastro() {
 
     // Verifica se algum campo está vazio
     keysCampo.forEach((campo) => {
-      if (dadosCampos[campo] === '') {
+      if (dadosCampos[campo] === "") {
         atualizaCamposInvalidos[campo] = true;
         possuiErro = true;
       } else {
@@ -84,7 +84,7 @@ export default function Cadastro() {
   // Tratamento de erro caso nenhuma opção de usuário foi selecionada
   // Ativa o HelperText de erro
   const identificaNenhumaEscolhaUsuario = () => {
-    if (botaoSelecionado === null && !usuarioNaoEscolhido) {
+    if (botaoSelecionado === null) {
       setUsuarioNaoEscolhido(true);
       return true;
     }
@@ -105,8 +105,8 @@ export default function Cadastro() {
   };
 
   const onPressVoltar = () => {
-    alert('voltar');
-    console.log('voltar');
+    alert("voltar");
+    console.log("voltar");
   };
 
   const onPressEyeIcon = () => {
@@ -116,17 +116,19 @@ export default function Cadastro() {
   const onPressBotao = (tipoBotao) => {
     // Caso seja o botão de cadastro será feito o
     // tratamento de erros e a persistência de dados
-    if (tipoBotao === 'cadastro') {
-      if (!identificaCamposVazios() & !identificaNenhumaEscolhaUsuario()) {
-        console.log('Salvar cadastro');
-        console.log('Dados:');
+    if (tipoBotao === "cadastro") {
+      if (!identificaCamposVazios() && !identificaNenhumaEscolhaUsuario()) {
+        console.log("Salvar cadastro");
+        console.log("Dados:");
         console.log(dadosCampos);
         console.log(botaoSelecionado);
-        alert('Dados salvos');
+        alert(
+          `Dados salvos:\n${dadosCampos.nome}\n${dadosCampos.email}\n${dadosCampos.senha}\n${botaoSelecionado}`
+        );
       }
-    } else if (tipoBotao === 'login') {
-      console.log('voltar para inicio');
-      alert('Voltar para início');
+    } else if (tipoBotao === "login") {
+      console.log("voltar para inicio");
+      alert("Voltar para início");
     }
   };
 
@@ -146,7 +148,8 @@ export default function Cadastro() {
           <HelperText
             style={estilos.textoErro}
             type="error"
-            visible={usuarioNaoEscolhido}>
+            visible={usuarioNaoEscolhido}
+          >
             <Texto>{tipoUsuario.textoErro}</Texto>
           </HelperText>
         </View>
@@ -174,15 +177,15 @@ export default function Cadastro() {
       <View style={estilos.topoCard}>
         <Texto style={estilos.tituloFormulario}>{formulario.titulo}</Texto>
       </View>
-      
+
       <FlatList
         style={estilos.flatlist}
         data={formulario.campos}
         renderItem={({ item }) => (
           <CampoFormulario
             {...item}
-            onPressEyeIcon={item.keyCampo === 'senha' ? onPressEyeIcon : null}
-            senhaOculta={item.keyCampo === 'senha' ? senhaOculta : null}
+            onPressEyeIcon={item.keyCampo === "senha" ? onPressEyeIcon : null}
+            senhaOculta={item.keyCampo === "senha" ? senhaOculta : null}
             handleOnChangeDadosCampos={handleOnChangeDadosCampos}
             camposInvalidos={camposInvalidos}
             setCamposInvalidos={setCamposInvalidos}
@@ -196,7 +199,7 @@ export default function Cadastro() {
 
               <Botao
                 titulo={botaoConcluir}
-                tipo={'cadastro'}
+                tipo={"cadastro"}
                 onPressBotao={onPressBotao}
               />
 
@@ -208,14 +211,13 @@ export default function Cadastro() {
 
               <Botao
                 titulo={botaoLogin}
-                tipo={'login'}
+                tipo={"login"}
                 onPressBotao={onPressBotao}
               />
             </>
           );
         }}
       />
-
     </>
   );
 }
@@ -227,27 +229,27 @@ const estilos = StyleSheet.create({
 
   topoCard: {
     height: 60,
-    backgroundColor: 'white',
+    backgroundColor: "white",
     marginTop: -25,
-    justifyContent: 'center',
+    justifyContent: "center",
     borderTopEndRadius: 30,
     borderTopStartRadius: 30,
   },
 
   tituloFormulario: {
     color: cores.onyx,
-    position: 'absolute',
+    position: "absolute",
     bottom: 0,
     marginHorizontal: 24,
     fontSize: 12,
-    fontWeight: '600',
+    fontWeight: "600",
     lineHeight: 30,
   },
 
   containerTituloUsuario: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     marginTop: 20,
     marginBottom: 5,
   },
@@ -255,13 +257,13 @@ const estilos = StyleSheet.create({
   tituloTipoUsuario: {
     color: cores.onyx,
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: "600",
     paddingHorizontal: 12,
   },
 
   containerTipoUsuarios: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginBottom: 16,
     paddingHorizontal: 12,
   },
@@ -272,21 +274,20 @@ const estilos = StyleSheet.create({
 
   verificaUsuario: {
     fontSize: 12,
-    fontWeight: '500',
+    fontWeight: "500",
     color: cores.spanishGray,
   },
 
   containerLinha: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-evenly',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-evenly",
     marginVertical: 5,
   },
 
   linha: {
-    width: '25%',
+    width: "25%",
     height: 1,
     backgroundColor: cores.gainsboro,
   },
-
 });

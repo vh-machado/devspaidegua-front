@@ -13,6 +13,7 @@ import {
 import * as SplashScreen from 'expo-splash-screen';
 
 import Cadastro from './src/telas/Cadastro';
+import Inicio from './src/telas/Inicio';
 
 export default function App() {
   const [fonteCarregada] = useFonts({
@@ -51,6 +52,7 @@ export default function App() {
         onLayout={onLayoutRootView}>
         <StatusBar style="light" translucent={true} />
         <Cadastro />
+        {/*<Inicio/>*/}
       </SafeAreaView>
     </SafeAreaProvider>
   );
