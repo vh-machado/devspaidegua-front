@@ -1,10 +1,14 @@
 import React from "react";
-import { Text } from "react-native";
+
+import TopoPesquisa from "../../components/TopoPesquisa";
+import useFeira from "../../hooks/useFeira";
 
 export default function Feira() {
+  const {textoBarraPesquisa} = useFeira();
+
   return (
-    <Text style={{ flex: 1, textAlign: "center", textAlignVertical: "center" }}>
-      Feira
-    </Text>
+    <>
+      <TopoPesquisa textoBarraPesquisa={textoBarraPesquisa}/>
+    </>
   );
 }

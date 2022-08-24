@@ -4,14 +4,11 @@ import { Searchbar } from "react-native-paper";
 import { Ionicons } from "@expo/vector-icons";
 
 import cores from "../assets/cores";
-import topo from "../assets/topo.png";
 import FundoTopo from "../assets/backgrounds/topo.svg"
-import useInicio from "../hooks/useInicio";
 
 const width = Dimensions.get("screen").width;
 
-export default function TopoPesquisa() {
-  const { textoBarraPesquisa } = useInicio();
+export default function TopoPesquisa({textoBarraPesquisa}) {
 
   return (
     <View style={estilos.topo}>

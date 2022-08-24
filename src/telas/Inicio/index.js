@@ -10,6 +10,7 @@ import CardPontoTuristico from "./components/CardPontoTuristico";
 
 export default function Inicio() {
   const {
+    textoBarraPesquisa,
     tituloDestaques,
     listaDestaques,
     tituloPontosTuristicos,
@@ -32,7 +33,7 @@ export default function Inicio() {
   return (
     <>
       <View style={{ backgroundColor: cores.cultured }}>
-        <TopoPesquisa />
+        <TopoPesquisa textoBarraPesquisa={textoBarraPesquisa}/>
       </View>
 
       <FlatList

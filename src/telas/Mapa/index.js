@@ -1,10 +1,14 @@
 import React from "react";
-import { Text } from "react-native";
+
+import TopoPesquisa from "../../components/TopoPesquisa";
+import useMapa from "../../hooks/useMapa";
 
 export default function Mapa() {
+  const {textoBarraPesquisa} = useMapa();
+
   return (
-    <Text style={{ flex: 1, textAlign: "center", textAlignVertical: "center" }}>
-      Mapa
-    </Text>
+    <>
+      <TopoPesquisa textoBarraPesquisa={textoBarraPesquisa}/>
+    </>
   );
 }
