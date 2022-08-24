@@ -1,7 +1,8 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Entypo } from "@expo/vector-icons";
+import { Entypo,FontAwesome5 } from "@expo/vector-icons";
+
 
 import Inicio from "../telas/Inicio";
 import cores from "../assets/cores";
@@ -10,6 +11,7 @@ import FeiraIcone from "../assets/icons/market_stall.svg";
 import Mapa from "../telas/Mapa";
 import Feira from "../telas/Feira";
 import { StyleSheet } from "react-native";
+import Perfil from "../telas/Perfil";
 
 const Tab = createBottomTabNavigator();
 
@@ -23,13 +25,17 @@ export default function AppRotas() {
           tabBarLabelStyle: estilos.tabBarLabel,
           tabBarItemStyle: estilos.tabBarItem,
           tabBarIcon: ({ color }) => {
-            let Icon = <Entypo style={estilos.tabBadge} name="home" size={30} color={color}/>;
+            let Icon = <Entypo style={estilos.tabBadge} name="home" size={24} color={color}/>;
 
             if (route.name === "Mapa") {
-              Icon = <MapaIcone style={estilos.tabBadge} color={color}/>;
-              
+              Icon = <MapaIcone style={estilos.tabBadge} color={color}/>; 
+
             } else if (route.name === "Feira") {
               Icon = <FeiraIcone color={color}/>
+
+            } else if (route.name === "Perfil"){
+              Icon = <FontAwesome5 name="user-alt" size={20} color={color} />
+
             }
             return Icon;
           },
@@ -40,6 +46,7 @@ export default function AppRotas() {
         <Tab.Screen name="Início" component={Inicio} />
         <Tab.Screen name="Mapa" component={Mapa} />
         <Tab.Screen name="Feira" component={Feira} />
+        <Tab.Screen name="Perfil" component={Perfil} />
 
       </Tab.Navigator>
     </NavigationContainer>
