@@ -1,10 +1,12 @@
 import React from 'react';
-import { StyleSheet, ImageBackground, Dimensions } from 'react-native';
+import { StyleSheet, ImageBackground, Dimensions, View } from 'react-native';
 
 import Texto from '../../../components/Texto';
 import BotaoVoltar from './BotaoVoltar';
 
 import topo from '../../../assets/topo-cadastro.png';
+import FundoTopoCadastro from "../../../assets/backgrounds/topo-cadastro.svg"
+
 import useCadastro from '../../../hooks/useCadastro';
 
 const width = Dimensions.get('screen').width;
@@ -15,10 +17,11 @@ export default function ({ onPressVoltar }) {
   const { titulo } = useCadastro();
 
   return (
-    <ImageBackground style={estilos.topo} source={topo}>
+    <View style={estilos.topo}>
+      <FundoTopoCadastro style={{position: "absolute"}}/>
       <BotaoVoltar onPressVoltar={onPressVoltar} />
       <Texto style={estilos.titulo}>{titulo}</Texto>
-    </ImageBackground>
+    </View>
   );
 }
 

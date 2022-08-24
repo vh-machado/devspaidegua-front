@@ -1,5 +1,5 @@
 import React from "react";
-import { FlatList, StyleSheet } from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
 import cores from "../../assets/cores";
 import Texto from "../../components/Texto";
 
@@ -31,7 +31,9 @@ export default function Inicio() {
 
   return (
     <>
-      <TopoPesquisa />
+      <View style={{ backgroundColor: cores.cultured }}>
+        <TopoPesquisa />
+      </View>
 
       <FlatList
         style={estilos.flatlist}
@@ -75,5 +77,6 @@ const estilos = StyleSheet.create({
   carrossel: {
     paddingHorizontal: 16,
     marginVertical: 10,
+    paddingBottom: 50,
   },
 });

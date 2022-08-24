@@ -5,7 +5,7 @@ import { Ionicons } from "@expo/vector-icons";
 
 import cores from "../assets/cores";
 import topo from "../assets/topo.png";
-import Texto from "./Texto";
+import FundoTopo from "../assets/backgrounds/topo.svg"
 import useInicio from "../hooks/useInicio";
 
 const width = Dimensions.get("screen").width;
@@ -14,17 +14,19 @@ export default function TopoPesquisa() {
   const { textoBarraPesquisa } = useInicio();
 
   return (
-    <ImageBackground source={topo} style={estilos.topo}>
+    <View style={estilos.topo}>
+      <FundoTopo style={{position: "absolute"}}/>
+        
       <Searchbar
-        style={estilos.barraPesquisa}
-        inputStyle={estilos.texto}
-        placeholderTextColor={cores.battleshipGrey}
-        placeholder={textoBarraPesquisa}
-        theme={{colors:{primary: cores.celadonBlue}}}
-        icon={() => <Ionicons name="search" size={20} color={cores.battleshipGrey} />}
-        clearIcon
-      />
-    </ImageBackground>
+          style={estilos.barraPesquisa}
+          inputStyle={estilos.texto}
+          placeholderTextColor={cores.battleshipGrey}
+          placeholder={textoBarraPesquisa}
+          theme={{colors:{primary: cores.celadonBlue}}}
+          icon={() => <Ionicons name="search" size={20} color={cores.battleshipGrey} />}
+          clearIcon
+        />
+    </View>
   );
 }
 
