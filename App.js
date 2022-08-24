@@ -12,6 +12,7 @@ import {
 } from '@expo-google-fonts/montserrat';
 import * as SplashScreen from 'expo-splash-screen';
 
+import AppRotas from './src/rotas/AppRotas';
 import Cadastro from './src/telas/Cadastro';
 import Inicio from './src/telas/Inicio';
 
@@ -51,8 +52,9 @@ export default function App() {
         style={{ flex: 1 }}
         onLayout={onLayoutRootView}>
         <StatusBar style="light" translucent={true} />
-        {/*<Cadastro />*/}
-        <Inicio/>
+        <AppRotas/>
+        {/*<Cadastro />
+        <Inicio/>*/}
       </SafeAreaView>
     </SafeAreaProvider>
   );
