@@ -1,15 +1,10 @@
-import { AntDesign, MaterialIcons, Octicons } from '@expo/vector-icons';
+import { AntDesign, MaterialIcons } from '@expo/vector-icons';
 import Icon from 'react-native-remix-icon';
 
 import cores from '../assets/cores';
 
 const cadastro = {
-  botaoVoltar: {
-    titulo: 'Voltar',
-    icone: (
-      <Octicons name="chevron-left" size={30} color={cores.blueSapphire} />
-    ),
-  },
+  botaoVoltar: 'Voltar',
   
   titulo: 'Cadastro',
 

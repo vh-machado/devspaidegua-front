@@ -12,12 +12,13 @@ import Mapa from "../telas/Mapa";
 import Feira from "../telas/Feira";
 import { StyleSheet } from "react-native";
 import Perfil from "../telas/Perfil";
+import PerfilProdutoRotas from "./PerfilProdutoRotas";
+import FeiraProdutoRotas from "./FeiraProdutoRotas";
 
 const Tab = createBottomTabNavigator();
 
 export default function AppRotas() {
   return (
-    <NavigationContainer>
       <Tab.Navigator
         screenOptions={({ route }) => ({
           headerShown: false,
@@ -45,11 +46,10 @@ export default function AppRotas() {
       >
         <Tab.Screen name="Início" component={Inicio} />
         <Tab.Screen name="Mapa" component={Mapa} />
-        <Tab.Screen name="Feira" component={Feira} />
-        <Tab.Screen name="Perfil" component={Perfil} />
+        <Tab.Screen name="Feira" component={FeiraProdutoRotas} />
+        <Tab.Screen name="Perfil" component={PerfilProdutoRotas} />
 
       </Tab.Navigator>
-    </NavigationContainer>
   );
 }
 

@@ -5,10 +5,7 @@ import { carregaCadastro } from '../servicos/carregaDados';
 export default function useCadastro() {
 
   const [cadastro, setCadastro] = useState({
-    botaoVoltar: {
-      titulo: '',
-      icone: null,
-    },
+    botaoVoltar: '',
     titulo: '',
     formulario: {
       titulo: '',

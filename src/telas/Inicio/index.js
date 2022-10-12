@@ -21,6 +21,7 @@ export default function Inicio() {
   const CarrosselPontosTuristicos = () => {
     return (
       <FlatList
+        showsHorizontalScrollIndicator={false}
         contentContainerStyle={estilos.carrossel}
         data={listaPontosTuristicos}
         horizontal={true}

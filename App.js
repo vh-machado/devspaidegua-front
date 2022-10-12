@@ -1,8 +1,12 @@
 import React, { useEffect, useCallback } from "react";
 //import { StatusBar } from 'react-native';
 import { StatusBar } from "expo-status-bar";
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
-
+import {
+  SafeAreaProvider,
+  SafeAreaView,
+} from "react-native-safe-area-context";
+import { NavigationContainer } from "@react-navigation/native";
+import { StyleSheet } from "react-native";
 import {
   useFonts,
   Montserrat_400Regular,
@@ -13,9 +17,10 @@ import {
 import * as SplashScreen from "expo-splash-screen";
 
 import AppRotas from "./src/rotas/AppRotas";
-import Cadastro from "./src/telas/Cadastro";
-import Inicio from "./src/telas/Inicio";
-import { StyleSheet } from "react-native";
+import CadastroRotas from "./src/rotas/CadastroRotas";
+import cores from "./src/assets/cores";
+
+const usuarioLogado = true;
 
 export default function App() {
   const [fonteCarregada] = useFonts({
@@ -54,9 +59,11 @@ export default function App() {
         onLayout={onLayoutRootView}
       >
         <StatusBar style="light" translucent={true} />
-        <AppRotas />
-        {/*<Cadastro />
-        <Inicio/>*/}
+        
+        <NavigationContainer>
+          {(!usuarioLogado && <CadastroRotas />) || <AppRotas />}
+        </NavigationContainer>
+
       </SafeAreaView>
     </SafeAreaProvider>
   );
@@ -64,6 +71,7 @@ export default function App() {
 
 const estilos = StyleSheet.create({
   safeAreaView: {
-    flex: 1,
+    height: "100%",
+    backgroundColor: cores.cultured,
   },
 });

@@ -1,7 +1,7 @@
 import React, { useState, useReducer } from "react";
 import { View, FlatList, StyleSheet } from "react-native";
-
 import { HelperText } from "react-native-paper";
+import { useNavigation } from '@react-navigation/native';
 
 import Texto from "../../components/Texto";
 import Topo from "./components/Topo";
@@ -13,6 +13,8 @@ import cores from "../../assets/cores";
 import useCadastro from "../../hooks/useCadastro";
 
 export default function Cadastro() {
+  const navigation = useNavigation();
+
   // Pega os dados do mock cadastro
   const {
     formulario,
@@ -104,11 +106,6 @@ export default function Cadastro() {
     }
   };
 
-  const onPressVoltar = () => {
-    alert("voltar");
-    console.log("voltar");
-  };
-
   const onPressEyeIcon = () => {
     setSenhaOculta(!senhaOculta);
   };
@@ -125,6 +122,7 @@ export default function Cadastro() {
         alert(
           `Dados salvos:\n${dadosCampos.nome}\n${dadosCampos.email}\n${dadosCampos.senha}\n${botaoSelecionado}`
         );
+        navigation.navigate('AppRotas');
       }
     } else if (tipoBotao === "login") {
       console.log("voltar para inicio");
@@ -172,7 +170,7 @@ export default function Cadastro() {
 
   return (
     <>
-      <Topo onPressVoltar={onPressVoltar} />
+      <Topo />
 
       <View style={estilos.topoCard}>
         <Texto style={estilos.tituloFormulario}>{formulario.titulo}</Texto>
@@ -225,11 +223,13 @@ export default function Cadastro() {
 const estilos = StyleSheet.create({
   flatlist: {
     paddingHorizontal: 12,
+    backgroundColor: cores.cultured,
+
   },
 
   topoCard: {
     height: 60,
-    backgroundColor: "white",
+    backgroundColor: cores.cultured,
     marginTop: -25,
     justifyContent: "center",
     borderTopEndRadius: 30,
