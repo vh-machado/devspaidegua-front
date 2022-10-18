@@ -7,7 +7,7 @@ import BotaoAnimado from "../../../components/BotaoAnimado";
 import Texto from "../../../components/Texto";
 import usePerfil from "../../../hooks/usePerfil";
 
-export default function BotaoCompra({ tipo = "cesta", nomeProduto }) {
+export default function BotaoCompra({ tipo = "cesta", nomeProduto, aoPressionarSacola }) {
   const { numeroWhatsapp } = usePerfil();
 
   const onPressContato = () => {
@@ -21,7 +21,7 @@ export default function BotaoCompra({ tipo = "cesta", nomeProduto }) {
   return (
     <BotaoAnimado
       estilo={estilos.botaoCompra}
-      onPress={tipo === "contato" ? onPressContato : null}
+      onPress={tipo === "contato" ? onPressContato : aoPressionarSacola}
     >
       {tipo === "contato" ? (
         <FontAwesome5 name="whatsapp" size={24} color="white" />

@@ -2,8 +2,8 @@ import React from "react";
 import Feira from "../telas/Feira";
 import ProdutoRotas from "./ProdutoRotas";
 
-export default function FeiraProdutoRotas() {
+export default function FeiraProdutoRotas({sacola}) {
   return (
-    <ProdutoRotas ComponenteOrigem={Feira}/>
+    <ProdutoRotas ComponenteOrigem={() => <Feira sacola={sacola}/>}/>
   );
 }

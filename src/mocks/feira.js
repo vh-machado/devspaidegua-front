@@ -8,6 +8,7 @@ import categoriaLanches from "../assets/icons/categorias/lanches.svg";
 import categoriaBebidas from "../assets/icons/categorias/bebidas.svg";
 import categoriaVestuario from "../assets/icons/categorias/vestuario.svg";
 import cores from "../assets/cores";
+import { vendedores } from "./vendedores";
 
 const { filtros } = cores;
 
@@ -49,56 +50,62 @@ const feira = {
     {
       id: 0,
       nome: "Fruta1",
-      preco: "R$ 2,00",
+      preco: 2.8,
       imagem: fotoProduto,
       descricao: "Descrição do produto",
       categoria: 1,
       filtro: "Manga",
+      vendedor: 3,
     },
     {
       id: 1,
       nome: "Fruta2",
-      preco: "R$ 2,00",
+      preco: 2.0,
       imagem: fotoProduto,
       descricao: "Descrição do produto",
       categoria: 1,
       filtro: "Banana",
+      vendedor: 3,
     },
     {
       id: 2,
       nome: "Carne1",
-      preco: "R$ 2,00",
+      preco: 2.0,
       imagem: fotoProduto,
       descricao: "Descrição do produto",
       categoria: 0,
       filtro: "Pá",
+      vendedor: 2,
     },
     {
       id: 3,
       nome: "Carne2",
-      preco: "R$ 2,00",
+      preco: 4.0,
       imagem: fotoProduto,
       descricao: "Descrição do produto",
       categoria: 0,
       filtro: "Agulha",
+      vendedor: 2,
     },
     {
       id: 4,
       nome: "Carne3",
-      preco: "R$ 2,00",
+      preco: 2.5,
       imagem: fotoProduto,
       descricao: "Descrição do produto",
       categoria: 0,
       filtro: "Agulha",
+      vendedor: 2,
     },
     {
       id: 5,
       nome: "Carne4",
-      preco: "R$ 2,00",
+      preco: 4.25,
       imagem: fotoProduto,
       descricao: "Descrição do produto",
       categoria: 0,
       filtro: "Picanha",
+      vendedor: 2,
     },
   ],
 };

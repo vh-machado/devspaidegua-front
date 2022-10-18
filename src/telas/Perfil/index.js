@@ -62,7 +62,10 @@ const Localizacao = () => {
   );
 };
 
-export default function Perfil() {
+/** Tela de perfil do cliente/vendedor
+ * @param {Object} sacola itens escolhidos para compra 
+ */
+export default function Perfil({sacola}) {
   const navigation = useNavigation();
   const { produtos } = usePerfil();
 
@@ -82,7 +85,7 @@ export default function Perfil() {
             <CardProduto
               {...item}
               aoPressionarProduto={() => {
-                navigation.navigate("Produto", item);
+                navigation.navigate("Produto", {item, sacola});
               }}
             />
           )}

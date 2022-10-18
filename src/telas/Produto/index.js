@@ -1,5 +1,5 @@
 import { useNavigation, useRoute } from "@react-navigation/native";
-import React, { useEffect } from "react";
+import React, { useEffect, useReducer } from "react";
 import {
   Image,
   ImageBackground,
@@ -12,12 +12,30 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import cores from "../../assets/cores";
 import BotaoVoltar from "../../components/BotaoVoltar";
 import Texto from "../../components/Texto";
+import { vendedores } from "../../mocks/vendedores";
+import formataValor from "../../servicos/formataValor";
+import ModalLimpar from "../Sacola/components/ModalLimpar";
 import BotaoCompra from "./components/BotaoCompra";
 
 export default function Produto() {
   const route = useRoute();
   const navigation = useNavigation();
-  const { nome, preco, imagem, descricao } = route.params;
+  const {
+    item: { id, nome, preco, imagem, descricao, vendedor },
+    sacola,
+  } = route.params;
+
+  const [modalLimparVisivel, alterarVisibilidadeModal] = useReducer(
+    (modalLimparVisivel) => !modalLimparVisivel,
+    false
+  );
+
+  // Limpa a sacola e adiciona o produto
+  function limparSacola() {
+    sacola.vendedor = null;
+    sacola.produtos = [];
+    adicionaNaSacola();
+  }
 
   useEffect(() => {
     // Esconde a barra de navegação
@@ -34,16 +52,43 @@ export default function Produto() {
       });
   }, [navigation]);
 
+  const adicionaNaSacola = () => {
+    if (sacola.vendedor === null || sacola.vendedor?.id === vendedor) {
+      sacola.vendedor = {
+        ...vendedores.find((busca) => busca.id === vendedor),
+      };
+
+      // Verifica se o item já está na sacola
+      let buscaItem = sacola.produtos.find((item) => item.id === id);
+
+      if (buscaItem === undefined) {
+        sacola.produtos.push({
+          id,
+          nome,
+          preco,
+          imagem,
+          descricao,
+          quantidade: 1,
+        });
+      } else {
+        buscaItem.quantidade++;
+      }
+
+      navigation.canGoBack() ? navigation.goBack() : null;
+    } else {
+      alterarVisibilidadeModal()
+    }
+  };
+
   const InfoProduto = () => {
     return (
       <View style={estilos.info}>
         <Texto style={estilos.tituloProduto}>{nome}</Texto>
-        <Texto style={estilos.preco}>{preco}</Texto>
+        <Texto style={estilos.preco}>{formataValor(preco)}</Texto>
 
         <ScrollView showsVerticalScrollIndicator={false}>
           <Texto style={estilos.descricao}>{descricao}</Texto>
         </ScrollView>
-
       </View>
     );
   };
@@ -51,7 +96,10 @@ export default function Produto() {
   const BarraCompra = () => {
     return (
       <View style={estilos.barraCompra}>
-        <BotaoCompra tipo={"cesta"} />
+        <BotaoCompra
+          tipo={"cesta"}
+          aoPressionarSacola={() => adicionaNaSacola()}
+        />
         <BotaoCompra tipo={"contato"} nomeProduto={nome} />
       </View>
     );
@@ -67,6 +115,12 @@ export default function Produto() {
         <InfoProduto />
 
         <BarraCompra />
+
+        <ModalLimpar
+          visivel={modalLimparVisivel}
+          alterarVisibilidade={alterarVisibilidadeModal}
+          limparSacola={limparSacola}
+        />
       </View>
     </SafeAreaView>
   );
@@ -81,7 +135,7 @@ const estilos = StyleSheet.create({
   fundo: {
     height: "100%",
     backgroundColor: cores.cultured,
-    paddingBottom: 70
+    paddingBottom: 70,
   },
 
   imagemProduto: {
@@ -138,7 +192,7 @@ const estilos = StyleSheet.create({
   tabBar: {
     position: "absolute",
     bottom: 0,
-    height: 53,
+    height: 55,
     backgroundColor: "white",
     borderTopStartRadius: 30,
     borderTopEndRadius: 30,

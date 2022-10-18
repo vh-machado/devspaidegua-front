@@ -8,7 +8,9 @@ import useInicio from "../../hooks/useInicio";
 import CardDestaque from "./components/CardDestaque";
 import CardPontoTuristico from "./components/CardPontoTuristico";
 
-export default function Inicio() {
+
+
+export default function Inicio({sacola}) {
   const {
     textoBarraPesquisa,
     tituloDestaques,
@@ -33,9 +35,6 @@ export default function Inicio() {
 
   return (
     <>
-      <View style={{ backgroundColor: cores.cultured }}>
-        <TopoPesquisa textoBarraPesquisa={textoBarraPesquisa}/>
-      </View>
 
       <FlatList
         style={estilos.flatlist}
@@ -58,6 +57,8 @@ export default function Inicio() {
           );
         }}
       />
+
+      <TopoPesquisa textoBarraPesquisa={textoBarraPesquisa} sacola={sacola}/>
     </>
   );
 }
@@ -65,6 +66,7 @@ export default function Inicio() {
 const estilos = StyleSheet.create({
   flatlist: {
     backgroundColor: cores.cultured,
+    marginTop: 120,
   },
 
   tituloSecao: {
@@ -72,7 +74,7 @@ const estilos = StyleSheet.create({
     fontWeight: "600",
     color: cores.onyx,
     marginBottom: 10,
-    marginTop: 20,
+    marginTop: 25,
     marginHorizontal: 24,
   },
 

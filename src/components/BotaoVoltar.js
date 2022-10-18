@@ -20,7 +20,7 @@ export default function BotaoVoltar({ tipo = "branco" }) {
     navigation.canGoBack() ? navigation.goBack() : alert("Impossível voltar");
   };
 
-  const FundoGradiente = ({children}) => {
+  const FundoGradiente = ({ children }) => {
     return (
       <LinearGradient
         style={[estilos.botao, estilos.botaoTransparente]}
@@ -35,17 +35,13 @@ export default function BotaoVoltar({ tipo = "branco" }) {
         {children}
       </LinearGradient>
     );
-  }
+  };
 
-  const FundoBranco = ({children}) => {
-    return (
-      <View style={[estilos.botao, estilos.botaoBranco]}>
-        {children}
-      </View>
-    )
-  }
+  const FundoBranco = ({ children }) => {
+    return <View style={[estilos.botao, estilos.botaoBranco]}>{children}</View>;
+  };
 
-  let FundoBotao = tipo === "transparente"? FundoGradiente : FundoBranco;
+  let FundoBotao = tipo === "transparente" ? FundoGradiente : FundoBranco;
 
   return (
     <BotaoAnimado escalaMinima={0.98} onPress={onPressVoltar}>
@@ -75,7 +71,7 @@ const estilos = StyleSheet.create({
   },
 
   botaoBranco: {
-    backgroundColor: 'white'
+    backgroundColor: "white",
   },
 
   titulo: {

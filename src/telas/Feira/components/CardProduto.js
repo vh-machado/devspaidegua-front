@@ -3,6 +3,7 @@ import { Dimensions, Pressable, StyleSheet, View, Image } from "react-native";
 
 import cores from "../../../assets/cores";
 import Texto from "../../../components/Texto";
+import formataValor from "../../../servicos/formataValor";
 
 // Cálculo do tamanho do card
 const { width } = Dimensions.get("window");
@@ -23,7 +24,7 @@ export default function CardProduto({
       <Image style={estilos.fotoProduto} source={imagem} resizeMode="cover" />
       <View style={estilos.infoProduto}>
         <Texto style={estilos.nomeProduto}>{nome}</Texto>
-        <Texto style={estilos.precoProduto}>{preco}</Texto>
+        <Texto style={estilos.precoProduto}>{formataValor(preco)}</Texto>
       </View>
     </Pressable>
   );

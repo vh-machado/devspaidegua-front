@@ -11,7 +11,8 @@ import CardProduto from "./components/CardProduto";
 import ChipFiltro from "./components/ChipFiltro";
 import ModalFiltros from "./components/ModalFiltros";
 
-export default function Feira() {
+
+export default function Feira({sacola}) {
   const [categoriaEscolhida, setCategoriaEscolhida] = useState(null);
   const [filtrosEscolhidos, setFiltrosEscolhidos] = useState([]);
   const [modalFiltrosVisivel, alterarVisibilidadeModal] = useReducer(
@@ -94,7 +95,7 @@ export default function Feira() {
 
   const Categorias = () => {
     return (
-      <>
+      <View style={{marginTop: 15}}>
         <Texto style={estilos.titulo}>{tituloCategorias}</Texto>
         <FlatList
           horizontal={true}
@@ -112,7 +113,7 @@ export default function Feira() {
           )}
           keyExtractor={({ id }) => id}
         />
-      </>
+      </View>
     );
   };
 
@@ -145,10 +146,9 @@ export default function Feira() {
 
   return (
     <>
-      <TopoPesquisa textoBarraPesquisa={textoBarraPesquisa} />
 
       <FlatList
-        style={{ flex: 1 }}
+        style={{ flex: 1, marginTop: 120 }}
         contentContainerStyle={{ paddingBottom: 60 }}
         columnWrapperStyle={estilos.flatlistProdutos}
         data={produtosFiltrados}
@@ -156,7 +156,7 @@ export default function Feira() {
           <CardProduto
             {...item}
             aoPressionarProduto={() => {
-              navigation.navigate("Produto", item);
+              navigation.navigate("Produto", {item, sacola});
             }}
           />
         )}
@@ -172,6 +172,8 @@ export default function Feira() {
           );
         }}
       />
+
+      <TopoPesquisa textoBarraPesquisa={textoBarraPesquisa} sacola={sacola} />
 
       <ModalFiltros
         categoriaEscolhida={categoriaEscolhida}
