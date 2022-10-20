@@ -1,6 +1,6 @@
 import fotoProduto from "../assets/tucupi.jpg";
 
-const perfil = {
+const perfilVendedor = {
   nomeUsuario: "Nome Vendedor",
   valorEstrelas: "4.0",
   valorClientes: 45,
@@ -13,8 +13,7 @@ const perfil = {
   numeroWhatsapp: "+55(091)983447889",
   contaInstagram: "instagram",
   tituloLocalizacao: "Onde encontrar",
-  nomeLocalizacao: "Feira do Ver-o-Peso",
-  setorLocalizacao: "Setor de Frutas",
+  idLocalizacao: 1,
   botaoMapa: "Ver no mapa",
   tituloProdutos: "O que vende",
 
@@ -27,6 +26,7 @@ const perfil = {
       descricao: "Descrição do produto",
       categoria: 1,
       filtro: "Manga",
+      vendedor: 3,
     },
     {
       id: 1,
@@ -36,44 +36,9 @@ const perfil = {
       descricao: "Descrição do produto",
       categoria: 1,
       filtro: "Banana",
-    },
-    {
-      id: 2,
-      nome: "Carne1",
-      preco: 2.0,
-      imagem: fotoProduto,
-      descricao: "Descrição do produto",
-      categoria: 0,
-      filtro: "Pá",
-    },
-    {
-      id: 3,
-      nome: "Carne2",
-      preco: 4.0,
-      imagem: fotoProduto,
-      descricao: "Descrição do produto",
-      categoria: 0,
-      filtro: "Agulha",
-    },
-    {
-      id: 4,
-      nome: "Carne3",
-      preco: 2.5,
-      imagem: fotoProduto,
-      descricao: "Descrição do produto",
-      categoria: 0,
-      filtro: "Agulha",
-    },
-    {
-      id: 5,
-      nome: "Carne4",
-      preco: 4.25,
-      imagem: fotoProduto,
-      descricao: "Descrição do produto",
-      categoria: 0,
-      filtro: "Picanha",
+      vendedor: 3,
     },
   ],
 };
 
-export default perfil;
+export default perfilVendedor;

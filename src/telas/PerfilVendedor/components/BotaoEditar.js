@@ -5,10 +5,10 @@ import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import cores from "../../../assets/cores";
 import Texto from "../../../components/Texto";
 import BotaoAnimado from "../../../components/BotaoAnimado";
-import usePerfil from "../../../hooks/usePerfil";
+import usePerfilVendedor from "../../../hooks/usePerfilVendedor";
 
 export default function BotaoEditar({ tipo = "editar-catalogo" }) {
-  const { botaoEditarPerfil, botaoEditarCatalogo } = usePerfil();
+  const { botaoEditarPerfil, botaoEditarCatalogo } = usePerfilVendedor();
 
   let estilos = estilosFuncao(tipo);
 

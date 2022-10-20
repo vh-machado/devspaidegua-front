@@ -1,10 +1,10 @@
 import { StyleSheet, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-import Texto from "../../../components/Texto";
-import cores from "../../../assets/cores";
+import Texto from "./Texto";
+import cores from "../assets/cores";
 
-import useInicio from "../../../hooks/useInicio";
+import useInicio from "../hooks/useInicio";
 
 export default function InfoDetalhes() {
   const { tituloDetalhes } = useInicio();

@@ -6,10 +6,10 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import cores from "../../../assets/cores";
 import Texto from "../../../components/Texto";
 import BotaoAnimado from "../../../components/BotaoAnimado";
-import usePerfil from "../../../hooks/usePerfil";
+import usePerfilVendedor from "../../../hooks/usePerfilVendedor";
 
 export default function BotaoContato({ tipo = "whatsapp" }) {
-  const { numeroWhatsapp, contaInstagram } = usePerfil();
+  const { numeroWhatsapp, contaInstagram } = usePerfilVendedor();
 
   let estilos = estilosFuncao(tipo);
 

@@ -6,11 +6,11 @@ import Texto from "../../../components/Texto";
 
 import fundoBarraca from "../../../assets/backgrounds/fundo-barraca.jpg";
 import fotoUsuario from "../../../assets/foto-usuario.jpeg";
-import usePerfil from "../../../hooks/usePerfil";
 import BotaoVoltar from "../../../components/BotaoVoltar";
+import usePerfilVendedor from "../../../hooks/usePerfilVendedor";
 
 export default function TopoPerfil() {
-  const { nomeUsuario } = usePerfil();
+  const { nomeUsuario } = usePerfilVendedor();
 
   return (
     <>

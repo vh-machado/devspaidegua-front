@@ -1,7 +1,7 @@
 import React from "react";
 import { ImageBackground, StyleSheet } from "react-native";
 import BotaoAnimado from "../../../components/BotaoAnimado";
-import InfoDetalhes from "./InfoDetalhes";
+import InfoDetalhes from "../../../components/InfoDetalhes";
 
 import TituloLocalizacao from "./TituloLocalizacao";
 

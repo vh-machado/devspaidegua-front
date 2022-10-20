@@ -5,13 +5,14 @@ import { useNavigation } from "@react-navigation/native";
 
 import cores from "../../assets/cores";
 import Texto from "../../components/Texto";
-import usePerfil from "../../hooks/usePerfil";
 import BotaoContato from "./components/BotaoContato";
 import BotaoEditar from "./components/BotaoEditar";
 import CardFeedback from "./components/CardFeedback";
 import CardLocalizacao from "./components/CardLocalizacao";
 import TopoPerfil from "./components/TopoPerfil";
 import CardProduto from "../Feira/components/CardProduto";
+import { locais } from "../../mocks/locais";
+import usePerfilVendedor from "../../hooks/usePerfilVendedor";
 
 // Testes
 const userIsSeller = false;
@@ -19,7 +20,7 @@ const possuiWhatsapp = true;
 const possuiInstagram = true;
 
 const InfoPerfil = () => {
-  const { descricaoVendedor } = usePerfil();
+  const { descricaoVendedor } = usePerfilVendedor();
 
   return (
     <>
@@ -51,13 +52,14 @@ const BotoesEditar = () => {
   );
 };
 
-const Localizacao = () => {
-  const { tituloLocalizacao } = usePerfil();
+function Localizacao () {
+  const { tituloLocalizacao, idLocalizacao } = usePerfilVendedor();
+  const localizacao = locais.find(local => local?.id === idLocalizacao);
 
   return (
     <View style={estilos.localizacao}>
       <Texto style={estilos.tituloLocalizacao}>{tituloLocalizacao}</Texto>
-      <CardLocalizacao />
+      <CardLocalizacao {...localizacao} />
     </View>
   );
 };
@@ -65,11 +67,10 @@ const Localizacao = () => {
 /** Tela de perfil do cliente/vendedor
  * @param {Object} sacola itens escolhidos para compra 
  */
-export default function Perfil({sacola}) {
+export default function PerfilVendedor({sacola}) {
   const navigation = useNavigation();
-  const { produtos } = usePerfil();
 
-  const { tituloProdutos } = usePerfil();
+  const { tituloProdutos, produtos } = usePerfilVendedor();
 
   return (
     <SafeAreaView style={estilos.safeArea}>
@@ -100,7 +101,7 @@ export default function Perfil({sacola}) {
 
                 <View style={estilos.linha} />
 
-                {/*<Localizacao />*/}
+                <Localizacao />
 
                 <Texto style={estilos.tituloProdutos}>{tituloProdutos}</Texto>
               </>

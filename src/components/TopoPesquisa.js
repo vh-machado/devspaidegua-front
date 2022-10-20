@@ -5,7 +5,7 @@ import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 
 import cores from "../assets/cores";
 import FundoTopo from "../assets/backgrounds/topo.svg";
-import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 
 const width = Dimensions.get("screen").width;
 
@@ -58,7 +58,7 @@ export default function TopoPesquisa({ textoBarraPesquisa, sacola }) {
           onPress={() => navigation.navigate("Sacola", sacola)}
         >
           <MaterialCommunityIcons name="shopping" size={24} color="white" />
-          <Badge visible={sacola.vendedor !== null} style={estilos.badgeSacola}>
+          <Badge visible={contadorBadge > 0} style={estilos.badgeSacola}>
             {contadorBadge}
           </Badge>
         </Pressable>

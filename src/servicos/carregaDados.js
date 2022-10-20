@@ -2,7 +2,7 @@ import cadastro from "../mocks/cadastro";
 import inicio from "../mocks/inicio";
 import mapa from "../mocks/mapa";
 import feira from "../mocks/feira";
-import perfil from "../mocks/perfil";
+import perfilVendedor from "../mocks/perfilVendedor";
 
 export const carregaCadastro = () => {
   return cadastro;
@@ -20,6 +20,6 @@ export const carregaFeira = () => {
   return feira;
 };
 
-export const carregaPerfil = () => {
-  return perfil;
+export const carregaPerfilVendedor = () => {
+  return perfilVendedor;
 };

@@ -19,6 +19,7 @@ import formataValor from "../../servicos/formataValor";
 import BotaoAnimado from "../../components/BotaoAnimado";
 import MapaIcone from "../../assets/icons/location.svg";
 import ModalLimpar from "./components/ModalLimpar";
+import { locais } from "../../mocks/locais";
 
 const width = Dimensions.get("screen").width;
 
@@ -35,52 +36,10 @@ function Topo() {
   );
 }
 
-/*
-function ModalLimpar({ visivel, alterarVisibilidade, limparSacola }) {
-  return (
-    <Modal
-      isVisible={visivel}
-      onRequestClose={alterarVisibilidade}
-      onBackdropPress={alterarVisibilidade}
-      onBackButtonPress={alterarVisibilidade}
-      animationIn={"pulse"}
-      animationOut={"fadeOutDown"}
-      hideModalContentWhileAnimating={true}
-      backdropTransitionOutTiming={800}
-      useNativeDriver={true}
-    >
-      <View style={estilos.modal}>
-        <Texto style={estilos.tituloModal}>Limpar sacola?</Texto>
-        <Texto style={estilos.textoModal}>Todos os itens serão removidos</Texto>
-
-        <View style={{flexDirection: 'row'}}>
-          <BotaoAnimado
-              estilo={estilos.botaoCancelar}
-              onPress={() => {
-                alterarVisibilidade();
-              }}
-            >
-              <Texto style={estilos.tituloBotaoLimpar}>Cancelar</Texto>
-            </BotaoAnimado>
-
-          <BotaoAnimado
-            estilo={estilos.botaoLimpar}
-            onPress={() => {
-              limparSacola();
-              alterarVisibilidade();
-            }}
-          >
-            <Texto style={estilos.tituloBotaoLimpar}>Limpar</Texto>
-          </BotaoAnimado>
-        </View>
-        
-      </View>
-    </Modal>
-  );
-}
-*/
-
 function CardVendedor({ imagem, nome, localizacao }) {
+
+  const {nome: localNome} = locais.find( local => local.id == localizacao);
+
   return (
     <View style={estilos.cardVendedor}>
       <Image source={imagem} style={estilos.imagemVendedor} />
@@ -93,8 +52,8 @@ function CardVendedor({ imagem, nome, localizacao }) {
             width={"16"}
             height={"16"}
             color={cores.celadonBlue}
-          ></MapaIcone>
-          <Texto style={estilos.localizacao}>{localizacao}</Texto>
+          />
+          <Texto style={estilos.localizacao}>{localNome}</Texto>
         </View>
       </View>
     </View>
@@ -259,6 +218,8 @@ export default function Sacola() {
 
   const route = useRoute();
   let sacola = route.params;
+
+
 
   const [sacolaItens, setSacolaItens] = useState(sacola);
   const [precoTotal, setPrecoTotal] = useState(calculaPrecoTotal())

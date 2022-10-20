@@ -5,10 +5,10 @@ import { Linking, StyleSheet } from "react-native";
 import cores from "../../../assets/cores";
 import BotaoAnimado from "../../../components/BotaoAnimado";
 import Texto from "../../../components/Texto";
-import usePerfil from "../../../hooks/usePerfil";
+import usePerfilVendedor from "../../../hooks/usePerfilVendedor";
 
 export default function BotaoCompra({ tipo = "cesta", nomeProduto, aoPressionarSacola }) {
-  const { numeroWhatsapp } = usePerfil();
+  const { numeroWhatsapp } = usePerfilVendedor();
 
   const onPressContato = () => {
     Linking.openURL(

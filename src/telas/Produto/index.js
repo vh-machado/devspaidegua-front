@@ -16,6 +16,7 @@ import { vendedores } from "../../mocks/vendedores";
 import formataValor from "../../servicos/formataValor";
 import ModalLimpar from "../Sacola/components/ModalLimpar";
 import BotaoCompra from "./components/BotaoCompra";
+import CardVendedor from "./components/CardVendedor";
 
 export default function Produto() {
   const route = useRoute();
@@ -76,7 +77,7 @@ export default function Produto() {
 
       navigation.canGoBack() ? navigation.goBack() : null;
     } else {
-      alterarVisibilidadeModal()
+      alterarVisibilidadeModal();
     }
   };
 
@@ -86,8 +87,12 @@ export default function Produto() {
         <Texto style={estilos.tituloProduto}>{nome}</Texto>
         <Texto style={estilos.preco}>{formataValor(preco)}</Texto>
 
-        <ScrollView showsVerticalScrollIndicator={false}>
+        <ScrollView style={estilos.scroll} showsVerticalScrollIndicator={false}>
           <Texto style={estilos.descricao}>{descricao}</Texto>
+
+          <CardVendedor
+            {...vendedores.find((busca) => busca.id === vendedor)}
+          />
         </ScrollView>
       </View>
     );
@@ -146,7 +151,6 @@ const estilos = StyleSheet.create({
   info: {
     flex: 1,
     paddingTop: 24,
-    paddingHorizontal: 24,
     paddingBottom: 10,
   },
 
@@ -154,6 +158,7 @@ const estilos = StyleSheet.create({
     color: cores.onyx,
     fontSize: 18,
     fontWeight: "600",
+    paddingHorizontal: 24,
   },
 
   preco: {
@@ -161,6 +166,7 @@ const estilos = StyleSheet.create({
     fontSize: 18,
     fontWeight: "600",
     marginVertical: 12,
+    paddingHorizontal: 24,
   },
 
   descricao: {
@@ -169,6 +175,7 @@ const estilos = StyleSheet.create({
     fontSize: 12,
     fontWeight: "normal",
     marginVertical: 10,
+    paddingHorizontal: 24,
   },
 
   barraCompra: {

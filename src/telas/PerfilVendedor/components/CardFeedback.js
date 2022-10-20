@@ -4,14 +4,14 @@ import { FontAwesome } from "@expo/vector-icons";
 
 import cores from "../../../assets/cores";
 import Texto from "../../../components/Texto";
-import usePerfil from "../../../hooks/usePerfil";
+import usePerfilVendedor from "../../../hooks/usePerfilVendedor";
 
 const avaliado = true;
 const favoritado = true;
 
 export default function CardFeedback({ tipo = "clientes" }) {
   const { valorEstrelas, valorClientes, tituloEstrelas, tituloClientes } =
-    usePerfil();
+    usePerfilVendedor();
 
   let estilos = estilosFuncao(tipo);
 
