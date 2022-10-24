@@ -45,7 +45,6 @@ export default function Feira({ sacola, pesquisaInicio, setPesquisaInicio }) {
 
   const atualizaProdutosPesquisados = (textoPesquisa, idCategoria, filtros) => {
     // Filtragem pela pesquisa
-    console.log(filtros)
     let produtosFiltrados = produtos?.filter(function (produto) {
       const nomeProduto = produto.nome ? produto.nome.toLowerCase() : "";
       const texto = textoPesquisa?.toLowerCase();

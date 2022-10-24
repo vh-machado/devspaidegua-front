@@ -1,13 +1,13 @@
-import fotoVendedor from "../assets/foto-usuario.jpeg";
 import barracaFrutas from "../assets/vendedores/barraca-frutas.jpg";
+import iconeVendedor2 from "../assets/vendedores/icone-vendedor2.jpg";
 
-import fotoCliente from "../assets/foto-usuario.jpeg";
+import iconeCliente1 from "../assets/icone-cliente1.jpg";
 
 const userVendedor = {
   id: 2,
   userIsSeller: true,
   nome: "Vendedor 2",
-  imagem: fotoVendedor,
+  imagem: iconeVendedor2,
   capa: barracaFrutas,
   localizacao: 3,
   descricao:
@@ -27,7 +27,7 @@ const userCliente = {
     userIsSeller: false,
     nome: "Cliente 1",
     email: 'cliente@gmail.com',
-    imagem: fotoCliente,
+    imagem: iconeCliente1,
     favoritos: [],
     avaliacoes: [],
 };

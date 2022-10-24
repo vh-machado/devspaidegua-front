@@ -10,7 +10,7 @@ export default function CardPontoTuristico({
 }) {
   // Função onPress dos card que redireciona pra descrição do ponto turístico
   const onPressPontoTuristico = () => {
-    alert(`Ponto turístico pressionado: ${titulo}`);
+    console.log(`Ponto turístico pressionado: ${titulo}`);
   };
 
   return (

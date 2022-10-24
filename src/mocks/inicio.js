@@ -4,13 +4,12 @@ import peixes from "../assets/destaque-peixes.png";
 import frutas from "../assets/destaque-frutas.png";
 
 // Imagens dos cards de pontos turísticos
-import mercadoFerro from "../assets/ponto-mercado-ferro.png";
-import mercadoCarne from "../assets/ponto-mercado-carne.png";
-import solarBeira from "../assets/ponto-solar-beira.png";
-import feiraAcai from "../assets/ponto-feira-acai.png";
-import pracaRelogio from "../assets/ponto-praca-relogio.png";
-import pracaDomPedro2 from "../assets/ponto-praca-dpedro2.png";
-import ladeiraCastelo from "../assets/ponto-ladeira-castelo.png";
+import mercadoFerro from "../assets/locais/ponto-mercado-ferro.png";
+import mercadoCarne from "../assets/locais/ponto-mercado-carne.png";
+import feiraSetorFrutas from "../assets/locais/ponto-feira-setor-frutas.png";
+import feiraSetorRefeicoes from "../assets/locais/ponto-feira-setor-refeicoes.png";
+import solarBeira from "../assets/locais/ponto-solar-beira.png";
+import feiraAcai from "../assets/locais/ponto-feira-acai.png";
 
 const inicio = {
   textoBarraPesquisa: "Encontre tudo do Ver-o-Peso",
@@ -52,16 +51,15 @@ const inicio = {
   ],
   botaoOfertas: "Ofertas",
 
-  tituloPontosTuristicos: "Conheça os pontos turísticos",
+  tituloPontosTuristicos: "Conheça os pontos de venda",
   tituloDetalhes: "Detalhes",
   listaPontosTuristicos: [
     { key: 0, titulo: "Mercado de Ferro", imagem: mercadoFerro },
     { key: 1, titulo: "Mercado de Carne", imagem: mercadoCarne },
-    { key: 2, titulo: "Solar da Beira", imagem: solarBeira },
-    { key: 3, titulo: "Feira do Açaí", imagem: feiraAcai },
-    { key: 4, titulo: "Praça do Relógio", imagem: pracaRelogio },
-    { key: 5, titulo: "Praça Dom Pedro II", imagem: pracaDomPedro2 },
-    { key: 6, titulo: "Ladeira do Castelo", imagem: ladeiraCastelo, estiloTitulo: 'light' },
+    { key: 2, titulo: "Feira • Setor de Frutas", imagem: feiraSetorFrutas },
+    { key: 3, titulo: "Feira • Setor de Refeições", imagem: feiraSetorRefeicoes },
+    { key: 4, titulo: "Solar da Beira", imagem: solarBeira },
+    { key: 5, titulo: "Feira do Açaí", imagem: feiraAcai },
   ],
 };
 

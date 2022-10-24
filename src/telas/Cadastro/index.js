@@ -115,13 +115,9 @@ export default function Cadastro() {
     // tratamento de erros e a persistência de dados
     if (tipoBotao === "cadastro") {
       if (!identificaCamposVazios() && !identificaNenhumaEscolhaUsuario()) {
-        console.log("Salvar cadastro");
-        console.log("Dados:");
-        console.log(dadosCampos);
-        console.log(botaoSelecionado);
-        alert(
-          `Dados salvos:\n${dadosCampos.nome}\n${dadosCampos.email}\n${dadosCampos.senha}\n${botaoSelecionado}`
-        );
+        console.log("Salvar dados");
+        //console.log(dadosCampos);
+        //console.log(botaoSelecionado);
         navigation.navigate("AppRotas");
       }
     } else if (tipoBotao === "login") {

@@ -20,10 +20,10 @@ const feira = {
       titulo: "Carnes",
       Icone: categoriaCarnes,
       filtros: [
-        { titulo: "Pá", cor: filtros.bittersweet },
         { titulo: "Agulha", cor: filtros.bittersweet },
         { titulo: "Picadinho", cor: filtros.bittersweet },
         { titulo: "Picanha", cor: filtros.bittersweet },
+        { titulo: "Costela", cor: filtros.bittersweet },
       ],
     },
     {

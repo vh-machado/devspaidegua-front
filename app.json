@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "devspaidegua-frontend",
-    "slug": "devspaidegua-frontend",
+    "name": "Veropa",
+    "slug": "Veropa",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -25,7 +25,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.vhmachado.devspaidegua_frontend"
+      "package": "com.vhmachado.veropa"
     },
     "web": {
       "favicon": "./assets/favicon.png"

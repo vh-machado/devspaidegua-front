@@ -70,12 +70,7 @@ export default function Login() {
 
   const aoPressionarEntrar = () => {
     if (!identificaCamposVazios()) {
-      console.log("Salvar cadastro");
-      console.log("Dados:");
-      console.log(dadosCampos);
-      alert(
-        `Dados salvos:\n${dadosCampos.nome}\n${dadosCampos.email}\n${dadosCampos.senha}\n`
-      );
+      console.log("Salvar dados");
       navigation.navigate("AppRotas");
     }
   };
