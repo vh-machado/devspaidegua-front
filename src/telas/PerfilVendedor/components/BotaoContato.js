@@ -6,18 +6,17 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import cores from "../../../assets/cores";
 import Texto from "../../../components/Texto";
 import BotaoAnimado from "../../../components/BotaoAnimado";
-import usePerfilVendedor from "../../../hooks/usePerfilVendedor";
+import { useRoute } from "@react-navigation/native";
 
-export default function BotaoContato({ tipo = "whatsapp" }) {
-  const { numeroWhatsapp, contaInstagram } = usePerfilVendedor();
+export default function BotaoContato({ tipo = "whatsapp", contato }) {
 
   let estilos = estilosFuncao(tipo);
 
   const onPressContato = () => {
     Linking.openURL(
       tipo === "whatsapp"
-        ? `https://wa.me/${numeroWhatsapp}?text=Olá,%20vim%20do%20app%20Veropa`
-        : `instagram://user?username=${contaInstagram}`
+        ? `https://wa.me/${contato}?text=Olá,%20vim%20do%20app%20Veropa`
+        : `instagram://user?username=${contato}`
     );
   };
 

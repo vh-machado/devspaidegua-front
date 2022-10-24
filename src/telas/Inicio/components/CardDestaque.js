@@ -4,17 +4,15 @@ import { LinearGradient } from "expo-linear-gradient";
 import Texto from "../../../components/Texto";
 import BotaoOfertas from "./BotaoOfertas";
 import BotaoAnimado from "../../../components/BotaoAnimado";
+import { useNavigation } from "@react-navigation/native";
 
 export default function CardDestaque({
   item: { key, titulo, fundo, coresGradiente },
+  aoPressionarDestaque,
 }) {
-  // Função OnPress dos cards que redireciona para o filtro
-  const onPressDestaque = () => {
-    alert(`Destaque pressionado: ${titulo}`);
-  };
 
   return (
-    <BotaoAnimado onPress={() => onPressDestaque()}>
+    <BotaoAnimado onPress={() => aoPressionarDestaque(titulo)}>
       <ImageBackground source={fundo} style={estilos.card}>
         <LinearGradient
           style={estilos.gradiente}
@@ -63,6 +61,6 @@ const estilos = StyleSheet.create({
     fontWeight: "600",
     textAlignVertical: "center",
     marginStart: 45,
-    alignSelf: 'center',
+    alignSelf: "center",
   },
 });

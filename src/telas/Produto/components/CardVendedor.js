@@ -15,11 +15,12 @@ import BotaoAnimado from "../../../components/BotaoAnimado";
 
 const width = Dimensions.get("screen").width;
 
-export default function CardVendedor({ id, nome, imagem, localizacao, capa }) {
+export default function CardVendedor({vendedor}) {
+  const { id, nome, imagem, localizacao, capa } = vendedor;
   const navigation = useNavigation();
 
   const aoPressionarVendedor = () => {
-    navigation.navigate("PerfilVendedor", id);
+    navigation.navigate("PerfilVendedor", vendedor);
   };
 
   return (

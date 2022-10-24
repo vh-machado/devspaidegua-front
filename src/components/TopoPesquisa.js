@@ -9,8 +9,21 @@ import { useNavigation } from "@react-navigation/native";
 
 const width = Dimensions.get("screen").width;
 
-export default function TopoPesquisa({ textoBarraPesquisa, sacola }) {
+export default function TopoPesquisa({
+  inicio = false, 
+  textoBarraPesquisa,
+  filtragem,
+  aoPesquisar,
+  sacola,
+}) {
   const navigation = useNavigation();
+  const [textoPesquisa, setTextoPesquisa] = useState("");
+  const onChangePesquisa = (texto) => {
+    setTextoPesquisa(texto);
+    if(!inicio && texto === ""){
+      aoPesquisar(texto)
+    }
+  }
 
   const [contadorBadge, setContadorBadge] = useState(contabilizaProdutos());
 
@@ -36,6 +49,10 @@ export default function TopoPesquisa({ textoBarraPesquisa, sacola }) {
     if (sacola?.produtos?.length === 0) sacola.vendedor = null;
   }, [sacola]);
 
+  useEffect(() => {
+    setTextoPesquisa(filtragem?.pesquisa)
+  },[])
+
   return (
     <View style={estilos.topo}>
       <FundoTopo style={{ position: "absolute" }} />
@@ -46,11 +63,13 @@ export default function TopoPesquisa({ textoBarraPesquisa, sacola }) {
           inputStyle={estilos.texto}
           placeholderTextColor={cores.battleshipGrey}
           placeholder={textoBarraPesquisa}
+          value={textoPesquisa}
+          onChangeText={onChangePesquisa}
+          onSubmitEditing={() => aoPesquisar(textoPesquisa)}
           theme={{ colors: { primary: cores.celadonBlue } }}
           icon={() => (
             <Ionicons name="search" size={20} color={cores.battleshipGrey} />
           )}
-          clearIcon
         />
 
         <Pressable

@@ -5,20 +5,26 @@ import { FontAwesome } from "@expo/vector-icons";
 import cores from "../../../assets/cores";
 import Texto from "../../../components/Texto";
 import usePerfilVendedor from "../../../hooks/usePerfilVendedor";
+import { useRoute } from "@react-navigation/native";
+import useUser from "../../../hooks/useUser";
 
 const avaliado = true;
 const favoritado = true;
 
 export default function CardFeedback({ tipo = "clientes" }) {
-  const { valorEstrelas, valorClientes, tituloEstrelas, tituloClientes } =
-    usePerfilVendedor();
+  const route = useRoute();
+
+  const { tituloEstrelas, tituloClientes } = usePerfilVendedor();
+  const { avaliacaoEstrelas, numeroCurtidas } = route.params
+    ? route.params
+    : useUser();
 
   let estilos = estilosFuncao(tipo);
 
   // onPress dos ícones de estrela e coração
   const darFeedback = () => {
-    console.log("Feature de feedback")
-  }
+    console.log("Feature de feedback");
+  };
 
   return (
     <View style={estilos.card}>
@@ -37,7 +43,7 @@ export default function CardFeedback({ tipo = "clientes" }) {
       </Pressable>
 
       <Texto style={estilos.valor}>
-        {tipo === "estrelas" ? valorEstrelas : valorClientes}
+        {tipo === "estrelas" ? avaliacaoEstrelas : numeroCurtidas}
       </Texto>
       <Texto style={estilos.titulo}>
         {tipo === "estrelas" ? tituloEstrelas : tituloClientes}

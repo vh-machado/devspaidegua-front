@@ -94,12 +94,10 @@ export default function CampoFormulario({
 
 const estilos = StyleSheet.create({
   inputForm: {
-    flex: 1,
-    width: '100%',
     justifyContent: 'center',
     alignContent: 'center',
-    paddingVertical: 10,
-    paddingHorizontal: 12,
+    marginHorizontal: 12,
+    marginBottom: 10,
   },
   label: {
     fontSize: 12,
@@ -111,7 +109,7 @@ const estilos = StyleSheet.create({
   },
   textoErro: {
     fontSize: 10,
-    marginVertical: -10,
+    marginTop: -10,
     paddingHorizontal: 24,
   },
 });

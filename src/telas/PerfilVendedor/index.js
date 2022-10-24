@@ -1,7 +1,7 @@
 import React from "react";
 import { FlatList, StyleSheet, View, Image, Pressable } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 import cores from "../../assets/cores";
 import Texto from "../../components/Texto";
@@ -9,36 +9,43 @@ import BotaoContato from "./components/BotaoContato";
 import BotaoEditar from "./components/BotaoEditar";
 import CardFeedback from "./components/CardFeedback";
 import CardLocalizacao from "./components/CardLocalizacao";
-import TopoPerfil from "./components/TopoPerfil";
+import TopoPerfilVendedor from "./components/TopoPerfilVendedor";
 import CardProduto from "../Feira/components/CardProduto";
 import { locais } from "../../mocks/locais";
 import usePerfilVendedor from "../../hooks/usePerfilVendedor";
+import { produtos } from "../../mocks/produtos";
+import useUser from "../../hooks/useUser";
 
-// Testes
-const userIsSeller = false;
-const possuiWhatsapp = true;
-const possuiInstagram = true;
 
 const InfoPerfil = () => {
-  const { descricaoVendedor } = usePerfilVendedor();
+  const route = useRoute();
+
+  const { descricao } = route.params ? route.params : useUser();
 
   return (
     <>
       <View style={estilos.infoPerfil}>
-        <CardFeedback tipo={"estrelas"}></CardFeedback>
-        <CardFeedback tipo={"clientes"}></CardFeedback>
+        <CardFeedback tipo={"estrelas"} />
+        <CardFeedback tipo={"clientes"} />
       </View>
 
-      <Texto style={estilos.descricao}>{descricaoVendedor}</Texto>
+      <Texto style={estilos.descricao}>{descricao}</Texto>
     </>
   );
 };
 
 const BotoesContato = () => {
+  const route = useRoute();
+  const { numeroWhatsapp, contaInstagram } = route.params;
+
   return (
     <View style={estilos.infoPerfil}>
-      {possuiInstagram && <BotaoContato tipo={"instagram"} />}
-      {possuiWhatsapp && <BotaoContato tipo={"whatsapp"} />}
+      {contaInstagram && (
+        <BotaoContato tipo={"instagram"} contato={contaInstagram} />
+      )}
+      {numeroWhatsapp && (
+        <BotaoContato tipo={"whatsapp"} contato={numeroWhatsapp} />
+      )}
     </View>
   );
 };
@@ -52,41 +59,47 @@ const BotoesEditar = () => {
   );
 };
 
-function Localizacao () {
-  const { tituloLocalizacao, idLocalizacao } = usePerfilVendedor();
-  const localizacao = locais.find(local => local?.id === idLocalizacao);
+function Localizacao() {
+  const route = useRoute();
+  const { tituloLocalizacao } = usePerfilVendedor();
+  const { localizacao } = route.params !== undefined ? route.params : useUser();
+  const local = locais.find((busca) => busca?.id == localizacao);
 
   return (
     <View style={estilos.localizacao}>
       <Texto style={estilos.tituloLocalizacao}>{tituloLocalizacao}</Texto>
-      <CardLocalizacao {...localizacao} />
+      <CardLocalizacao {...local} />
     </View>
   );
-};
+}
 
-/** Tela de perfil do cliente/vendedor
- * @param {Object} sacola itens escolhidos para compra 
+/** Tela de perfil do vendedor
+ * @param {Object} sacola itens escolhidos para compra
  */
-export default function PerfilVendedor({sacola}) {
+export default function PerfilVendedor({ sacola }) {
   const navigation = useNavigation();
+  const route = useRoute();
 
-  const { tituloProdutos, produtos } = usePerfilVendedor();
+  const { tituloProdutos } = usePerfilVendedor();
+  const { id } = route.params ? route.params : useUser();
+
+  const produtosVendedor = produtos.filter((produto) => produto.vendedor == id);
 
   return (
     <SafeAreaView style={estilos.safeArea}>
       <View style={estilos.fundo}>
-        <TopoPerfil />
+        <TopoPerfilVendedor />
 
         <FlatList
           style={{ flex: 1 }}
           contentContainerStyle={{ paddingBottom: 60 }}
           columnWrapperStyle={estilos.flatlist}
-          data={produtos}
+          data={produtosVendedor}
           renderItem={({ item }) => (
             <CardProduto
               {...item}
               aoPressionarProduto={() => {
-                navigation.navigate("Produto", {item, sacola});
+                navigation.navigate("Produto", { item, sacola });
               }}
             />
           )}
@@ -97,7 +110,7 @@ export default function PerfilVendedor({sacola}) {
               <>
                 <InfoPerfil />
 
-                {(userIsSeller && <BotoesEditar />) || <BotoesContato />}
+                {(route.params && <BotoesContato />) || <BotoesEditar />}
 
                 <View style={estilos.linha} />
 

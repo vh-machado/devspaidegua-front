@@ -1,4 +1,5 @@
-import React from "react";
+import { useNavigation } from "@react-navigation/native";
+import React, { useState } from "react";
 import { FlatList, StyleSheet, View } from "react-native";
 import cores from "../../assets/cores";
 import Texto from "../../components/Texto";
@@ -8,9 +9,9 @@ import useInicio from "../../hooks/useInicio";
 import CardDestaque from "./components/CardDestaque";
 import CardPontoTuristico from "./components/CardPontoTuristico";
 
+export default function Inicio({ sacola, pesquisaInicio, setPesquisaInicio }) {
+  const navigation = useNavigation();
 
-
-export default function Inicio({sacola}) {
   const {
     textoBarraPesquisa,
     tituloDestaques,
@@ -18,6 +19,38 @@ export default function Inicio({sacola}) {
     tituloPontosTuristicos,
     listaPontosTuristicos,
   } = useInicio();
+
+  const aoPressionarDestaque = (destaque) => {
+    let categoriaDestaque;
+    let filtrosDestaque;
+
+    if (destaque === "Açaí") {
+      categoriaDestaque = 4;
+      filtrosDestaque = [{ cor: "#B482D6", titulo: "Açaí" }];
+    } else if (destaque === "Peixes") {
+      categoriaDestaque = 3;
+      filtrosDestaque = [];
+    } else if (destaque === "Frutas") {
+      categoriaDestaque = 1;
+      filtrosDestaque = [];
+    }
+
+    setPesquisaInicio({
+      ...pesquisaInicio,
+      categoria: categoriaDestaque,
+      filtros: filtrosDestaque,
+    });
+    navigation.navigate("Feira", {
+      screen: "ProdutoOrigem",
+    });
+  };
+
+  const aoPesquisar = (textoPesquisa) => {
+    setPesquisaInicio({ ...pesquisaInicio, pesquisa: textoPesquisa });
+    navigation.navigate("Feira", {
+      screen: "ProdutoOrigem",
+    });
+  };
 
   // Componente dos Pontos Turísticos
   const CarrosselPontosTuristicos = () => {
@@ -35,12 +68,13 @@ export default function Inicio({sacola}) {
 
   return (
     <>
-
       <FlatList
         style={estilos.flatlist}
         data={listaDestaques}
         horizontal={false}
-        renderItem={(item) => <CardDestaque {...item} />}
+        renderItem={(item) => (
+          <CardDestaque {...item} aoPressionarDestaque={aoPressionarDestaque} />
+        )}
         keyExtractor={({ key }) => key}
         ListHeaderComponent={() => {
           return <Texto style={estilos.tituloSecao}>{tituloDestaques}</Texto>;
@@ -58,7 +92,13 @@ export default function Inicio({sacola}) {
         }}
       />
 
-      <TopoPesquisa textoBarraPesquisa={textoBarraPesquisa} sacola={sacola}/>
+      <TopoPesquisa
+        inicio={true}
+        textoBarraPesquisa={textoBarraPesquisa}
+        sacola={sacola}
+        pesquisaInicio={pesquisaInicio}
+        aoPesquisar={(textoPesquisa) => aoPesquisar(textoPesquisa)}
+      />
     </>
   );
 }

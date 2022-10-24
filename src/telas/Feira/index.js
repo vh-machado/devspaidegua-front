@@ -1,4 +1,8 @@
-import { useNavigation } from "@react-navigation/native";
+import {
+  CommonActions,
+  useNavigation,
+  useRoute,
+} from "@react-navigation/native";
 import React, { useEffect, useReducer, useRef, useState } from "react";
 import { FlatList, StyleSheet, View, Dimensions } from "react-native";
 
@@ -11,16 +15,16 @@ import CardProduto from "./components/CardProduto";
 import ChipFiltro from "./components/ChipFiltro";
 import ModalFiltros from "./components/ModalFiltros";
 
+export default function Feira({ sacola, pesquisaInicio, setPesquisaInicio }) {
+  const navigation = useNavigation();
+  const route = useRoute();
 
-export default function Feira({sacola}) {
-  const [categoriaEscolhida, setCategoriaEscolhida] = useState(null);
-  const [filtrosEscolhidos, setFiltrosEscolhidos] = useState([]);
+  const [filtragem, setFiltragem] = useState({ ...pesquisaInicio });
   const [modalFiltrosVisivel, alterarVisibilidadeModal] = useReducer(
     (modalFiltrosVisivel) => !modalFiltrosVisivel,
     false
   );
 
-  const navigation = useNavigation();
   const {
     textoBarraPesquisa,
     tituloCategorias,
@@ -30,30 +34,64 @@ export default function Feira({sacola}) {
     produtos,
   } = useFeira();
 
-  let produtosPorCategoria = produtos;
+  const [produtosPesquisados, setProdutosPesquisados] = useState([]);
 
-  // Filtra  os produtos pela categoriaEscolhida
-  if (categoriaEscolhida !== null) {
-    produtosPorCategoria = produtos?.filter(
-      (produto) => produto.categoria === categoriaEscolhida
-    );
-  }
+  useEffect(() => {
+    setProdutosPesquisados(produtos);
+    setFiltragem({ ...pesquisaInicio });
+    const { pesquisa, categoria, filtros } = pesquisaInicio;
+    atualizaProdutosPesquisados(pesquisa, categoria, filtros);
+  }, [produtos]);
 
-  let produtosFiltrados = produtosPorCategoria;
-
-  // Filtra  os produtos pelo conjunto de filtros escolhidos
-  if (filtrosEscolhidos.length > 0) {
-    produtosFiltrados = [];
-
-    filtrosEscolhidos.forEach( filtro => {
-      produtosFiltrados = produtosFiltrados.concat(
-        produtosPorCategoria.filter(
-          (produto) => produto.filtro === filtro.titulo
-        )
-      )
-
+  const atualizaProdutosPesquisados = (textoPesquisa, idCategoria, filtros) => {
+    // Filtragem pela pesquisa
+    console.log(filtros)
+    let produtosFiltrados = produtos?.filter(function (produto) {
+      const nomeProduto = produto.nome ? produto.nome.toLowerCase() : "";
+      const texto = textoPesquisa?.toLowerCase();
+      return nomeProduto.indexOf(texto) > -1;
     });
-  }
+
+    // Filtragem por categoria
+    if (idCategoria != null) {
+      produtosFiltrados = produtosFiltrados?.filter(
+        (produto) => produto.categoria == idCategoria
+      );
+    }
+
+    // Filtragem pelos filtros
+    if (filtros.length > 0) {
+      let produtosPorFiltro = [];
+
+      filtros.forEach((filtro) => {
+        produtosPorFiltro = produtosPorFiltro.concat(
+          produtosFiltrados?.filter(
+            (produto) => produto.filtro === filtro.titulo
+          )
+        );
+      });
+      produtosFiltrados = produtosPorFiltro;
+    }
+
+    setProdutosPesquisados(produtosFiltrados);
+  };
+
+  /** Filtragem dos produtos de acordo com o que é pesquisado no TopoPesquisa */
+  const aoPesquisar = (textoPesquisa) => {
+    // Verifica se o campo de pesquisa está vazio
+    setPesquisaInicio({pesquisa: textoPesquisa, categoria: null, filtros: []});
+    setFiltragem({ pesquisa: textoPesquisa, categoria: null, filtros: [] });
+
+    if (textoPesquisa) {
+      atualizaProdutosPesquisados(
+        textoPesquisa,
+        filtragem.categoria,
+        filtragem.filtros
+      );
+    } else {
+      setProdutosPesquisados(produtos);
+    }
+  };
 
   /** Referência do flatlist de categorias */
   let flatListCategoriasRef = useRef(null);
@@ -61,9 +99,26 @@ export default function Feira({sacola}) {
   /** Mostra o card da categoria escolhida a cada render */
   const scrollToIndex = (indiceCategoria) => {
     const timer = setTimeout(() => {
-      flatListCategoriasRef.current.scrollToIndex({
+      flatListCategoriasRef.current?.scrollToIndex({
         animated: true,
         index: indiceCategoria,
+        viewOffset: 16,
+      });
+    }, 100);
+
+    return () => clearTimeout(timer);
+  };
+
+  useEffect(() => {
+    scrollToIndex(filtragem.categoria ? filtragem.categoria : 0);
+  }, [filtragem]);
+
+  const onScrollToIndexFailed = () => {
+    const timer = setTimeout(() => {
+      flatListCategoriasRef.current?.scrollToIndex({
+        animated: true,
+        index: 0,
+        viewOffset: 16,
       });
     }, 100);
 
@@ -73,29 +128,33 @@ export default function Feira({sacola}) {
   /** Controla a escolha de categorias */
   const alteraCategoria = (idCategoria) => {
     // Se a categoria já foi escolhida, ela é desativada
-    if (idCategoria === categoriaEscolhida) {
-      setCategoriaEscolhida(null);
+    if (idCategoria === filtragem.categoria) {
+      setFiltragem({ ...filtragem, categoria: null });
+      atualizaProdutosPesquisados(filtragem.pesquisa, null, []);
       return;
     }
 
-    setCategoriaEscolhida(idCategoria);
-    setFiltrosEscolhidos([]);
+    setFiltragem({ ...filtragem, categoria: idCategoria, filtros: [] });
+    atualizaProdutosPesquisados(filtragem.pesquisa, idCategoria, []);
   };
 
   /** Remove o chip do filtro aos filtros selecionados */
   const removeChip = (titulo) => {
-    setFiltrosEscolhidos(
-      filtrosEscolhidos.filter((filtro) => filtro.titulo !== titulo)
+    let filtrosAtualizados = filtragem?.filtros.filter(
+      (filtro) => filtro.titulo !== titulo
+    );
+
+    setFiltragem({ ...filtragem, filtros: filtrosAtualizados });
+    atualizaProdutosPesquisados(
+      filtragem.pesquisa,
+      filtragem.categoria,
+      filtrosAtualizados
     );
   };
 
-  useEffect(() => {
-    scrollToIndex(categoriaEscolhida === null ? 0 : categoriaEscolhida);
-  }, [categoriaEscolhida]);
-
   const Categorias = () => {
     return (
-      <View style={{marginTop: 15}}>
+      <View style={{ marginTop: 15 }}>
         <Texto style={estilos.titulo}>{tituloCategorias}</Texto>
         <FlatList
           horizontal={true}
@@ -107,11 +166,12 @@ export default function Feira({sacola}) {
           renderItem={({ item }) => (
             <CardCategoria
               {...item}
-              escolhida={categoriaEscolhida === item.id}
+              escolhida={filtragem.categoria === item.id}
               aoPressionarCategoria={() => alteraCategoria(item.id)}
             />
           )}
           keyExtractor={({ id }) => id}
+          onScrollToIndexFailed={onScrollToIndexFailed}
         />
       </View>
     );
@@ -122,7 +182,7 @@ export default function Feira({sacola}) {
       <>
         <Texto style={estilos.titulo}>{tituloFiltros}</Texto>
         <View style={estilos.filtros}>
-          {filtrosEscolhidos?.map((filtro) => {
+          {filtragem?.filtros?.map((filtro) => {
             return (
               <ChipFiltro
                 {...filtro}
@@ -146,17 +206,16 @@ export default function Feira({sacola}) {
 
   return (
     <>
-
       <FlatList
         style={{ flex: 1, marginTop: 120 }}
         contentContainerStyle={{ paddingBottom: 60 }}
         columnWrapperStyle={estilos.flatlistProdutos}
-        data={produtosFiltrados}
+        data={produtosPesquisados}
         renderItem={({ item }) => (
           <CardProduto
             {...item}
             aoPressionarProduto={() => {
-              navigation.navigate("Produto", {item, sacola});
+              navigation.navigate("Produto", { item, sacola });
             }}
           />
         )}
@@ -173,15 +232,20 @@ export default function Feira({sacola}) {
         }}
       />
 
-      <TopoPesquisa textoBarraPesquisa={textoBarraPesquisa} sacola={sacola} />
+      <TopoPesquisa
+        textoBarraPesquisa={textoBarraPesquisa}
+        filtragem={filtragem}
+        aoPesquisar={aoPesquisar}
+        sacola={sacola}
+      />
 
       <ModalFiltros
-        categoriaEscolhida={categoriaEscolhida}
         visivel={modalFiltrosVisivel}
         alterarVisibilidade={alterarVisibilidadeModal}
-        filtrosEscolhidos={filtrosEscolhidos}
-        setFiltrosEscolhidos={setFiltrosEscolhidos}
+        filtragem={filtragem}
+        setFiltragem={(atualizacao) => setFiltragem(atualizacao)}
         removeChip={removeChip}
+        atualizaProdutosPesquisados={atualizaProdutosPesquisados}
       />
     </>
   );

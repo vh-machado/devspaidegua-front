@@ -91,7 +91,7 @@ export default function Produto() {
           <Texto style={estilos.descricao}>{descricao}</Texto>
 
           <CardVendedor
-            {...vendedores.find((busca) => busca.id === vendedor)}
+            vendedor={vendedores.find((busca) => busca.id === vendedor)}
           />
         </ScrollView>
       </View>

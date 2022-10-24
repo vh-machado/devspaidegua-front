@@ -515,54 +515,6 @@ const estilos = StyleSheet.create({
     marginStart: 5,
   },
 
-  /*
-  modal: {
-    backgroundColor: "white",
-    borderRadius: 10,
-    padding: 20,
-  },
-
-  tituloModal: {
-    color: cores.onyx,
-    fontSize: 14,
-    fontWeight: "600",
-    marginBottom: 5,
-  },
-
-  textoModal: {
-    color: cores.onyx,
-    fontSize: 12,
-    fontWeight: "500",
-    marginBottom: 30,
-  },
-
-  botaoLimpar: {
-    flex: 1,
-    padding: 15,
-    backgroundColor: cores.bittersweet,
-    borderRadius: 10,
-    alignItems: "center",
-    justifyContent: "center",
-    marginStart: 5,
-  },
-
-  botaoCancelar: {
-    flex: 1,
-    padding: 15,
-    backgroundColor: cores.spanishGray,
-    borderRadius: 10,
-    alignItems: "center",
-    justifyContent: "center",
-    marginEnd: 5,
-  },
-
-  tituloBotaoLimpar: {
-    color: "white",
-    fontSize: 14,
-    fontWeight: "600",
-  },
-  */
-
   tabBar: {
     position: "absolute",
     bottom: 0,

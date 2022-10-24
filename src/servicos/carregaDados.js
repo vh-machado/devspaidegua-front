@@ -3,6 +3,12 @@ import inicio from "../mocks/inicio";
 import mapa from "../mocks/mapa";
 import feira from "../mocks/feira";
 import perfilVendedor from "../mocks/perfilVendedor";
+import user from "../mocks/user";
+import login from "../mocks/login";
+
+export const carregaLogin = () => {
+  return login;
+};
 
 export const carregaCadastro = () => {
   return cadastro;
@@ -23,3 +29,7 @@ export const carregaFeira = () => {
 export const carregaPerfilVendedor = () => {
   return perfilVendedor;
 };
+
+export const carregaUser = () => {
+  return user;
+}

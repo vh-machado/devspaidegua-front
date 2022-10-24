@@ -20,6 +20,7 @@ const cores = {
   filtros: {
     amber: "#FFBE0A",
     bittersweet: "#F07167",
+    lavanderFloral: "#B482D6",
     naplesYellow: "#FFE169",
     sandyBrown: "#F4A261",
   }

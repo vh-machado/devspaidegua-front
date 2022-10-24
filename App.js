@@ -17,10 +17,10 @@ import {
 import * as SplashScreen from "expo-splash-screen";
 
 import AppRotas from "./src/rotas/AppRotas";
-import CadastroRotas from "./src/rotas/CadastroRotas";
+import LoginRotas from "./src/rotas/LoginRotas";
 import cores from "./src/assets/cores";
 
-const usuarioLogado = true;
+const usuarioLogado = false;
 
 export default function App() {
   const [fonteCarregada] = useFonts({
@@ -61,7 +61,7 @@ export default function App() {
         <StatusBar style="light" translucent={true} />
         
         <NavigationContainer>
-          {(!usuarioLogado && <CadastroRotas />) || <AppRotas />}
+          {(!usuarioLogado && <LoginRotas />) || <AppRotas />}
         </NavigationContainer>
 
       </SafeAreaView>

@@ -9,47 +9,55 @@ import ChipFiltro from "./ChipFiltro";
 import BotaoAnimado from "../../../components/BotaoAnimado";
 
 export default function ModalFiltros({
-  categoriaEscolhida,
   visivel,
   alterarVisibilidade,
-  filtrosEscolhidos,
-  setFiltrosEscolhidos,
+  filtragem,
+  setFiltragem,
   removeChip,
+  atualizaProdutosPesquisados,
 }) {
   const { categorias } = useFeira();
 
   /** Adiciona o chip do filtro aos filtros selecionados */
   const adicionaChip = (filtro) => {
-    setFiltrosEscolhidos(filtrosEscolhidos.concat(filtro));
+    let filtrosAtualizados = filtragem?.filtros.concat(filtro);
+    setFiltragem({ ...filtragem, filtros: filtrosAtualizados });
+  };
+
+  const salvarFiltros = () => {
+    const { pesquisa, categoria, filtros } = filtragem;
+    atualizaProdutosPesquisados(pesquisa, categoria, filtros);
+    alterarVisibilidade();
   };
 
   /** Verifica se o chip de filtro foi selecionado no modal */
   const verificaFiltroSelecionado = (titulo) => {
     return (
-      filtrosEscolhidos.find((filtro) => filtro.titulo === titulo) !== undefined
+      filtragem?.filtros?.find((filtro) => filtro.titulo === titulo) !==
+      undefined
     );
   };
 
   // Separa os filtros da categoria escolhida
   let filtrosCategoria = categorias?.find(
-    (categoria) => categoria.id === categoriaEscolhida
+    (categoria) => categoria.id === filtragem?.categoria
   )?.filtros;
 
   // Caso nenhuma categoria foi selecionada, todos os
   // filtros serão mostrados
-  if(filtrosCategoria === undefined){
+  if (filtrosCategoria === undefined) {
     filtrosCategoria = [];
-    categorias?.forEach( categoria => {
+    categorias?.forEach((categoria) => {
       filtrosCategoria = filtrosCategoria.concat(categoria.filtros);
-    })
+    });
   }
 
   return (
     <Modal
       isVisible={visivel}
-      onRequestClose={alterarVisibilidade}
-      onBackdropPress={alterarVisibilidade}
-      onBackButtonPress={alterarVisibilidade}
+      onRequestClose={salvarFiltros}
+      onBackdropPress={salvarFiltros}
+      onBackButtonPress={salvarFiltros}
       animationIn={"pulse"}
       animationOut={"fadeOutDown"}
       hideModalContentWhileAnimating={true}
@@ -77,7 +85,11 @@ export default function ModalFiltros({
           })}
         </ScrollView>
 
-        <BotaoAnimado escalaMinima={0.95} estilo={estilos.botao} onPress={alterarVisibilidade}>
+        <BotaoAnimado
+          escalaMinima={0.95}
+          estilo={estilos.botao}
+          onPress={salvarFiltros}
+        >
           <Texto style={estilos.tituloBotao}>Pronto</Texto>
         </BotaoAnimado>
       </View>

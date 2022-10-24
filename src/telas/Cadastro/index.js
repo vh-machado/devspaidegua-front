@@ -1,7 +1,7 @@
 import React, { useState, useReducer } from "react";
 import { View, FlatList, StyleSheet } from "react-native";
 import { HelperText } from "react-native-paper";
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from "@react-navigation/native";
 
 import Texto from "../../components/Texto";
 import Topo from "./components/Topo";
@@ -122,11 +122,10 @@ export default function Cadastro() {
         alert(
           `Dados salvos:\n${dadosCampos.nome}\n${dadosCampos.email}\n${dadosCampos.senha}\n${botaoSelecionado}`
         );
-        navigation.navigate('AppRotas');
+        navigation.navigate("AppRotas");
       }
     } else if (tipoBotao === "login") {
-      console.log("voltar para inicio");
-      alert("Voltar para início");
+      navigation.canGoBack() ? navigation.goBack() : null;
     }
   };
 
@@ -224,7 +223,6 @@ const estilos = StyleSheet.create({
   flatlist: {
     paddingHorizontal: 12,
     backgroundColor: cores.cultured,
-
   },
 
   topoCard: {
